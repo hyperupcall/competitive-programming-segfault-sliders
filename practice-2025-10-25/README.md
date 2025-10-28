@@ -1,5 +1,4 @@
 # CSUMB Practice Contest 2
 
+- [Official Standings](https://ncna19.kattis.com/contests/ncna19/standings)
 - [Standings](https://open.kattis.com/contests/j3reff/standings)
-
-[comment]: # (This does have div 1 problems but I do not know which competition the problem set is from)
