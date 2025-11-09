@@ -21,56 +21,8 @@ vector<string> words;
 unordered_set<char> wordLetters;
 unordered_map<char, int> assignment; // maps each letter to die (0, 1, or 2)
 
-bool isValidPartial() {
-    // Check if current assignments violate any word constraints
-    for (const string& word : words) {
-        bool allAssigned = true;
-        unordered_set<int> diceUsed;
-        
-        // Check if all letters of this word are assigned
-        for (char c : word) {
-            if (assignment.find(c) == assignment.end()) {
-                allAssigned = false;
-                break;
-            }
-            diceUsed.insert(assignment[c]);
-        }
-        
-        // If all assigned, they must be on 3 different dice
-        if (allAssigned && diceUsed.size() != 3) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool backtrack(vector<char>& letters, int index, int dieCount[3]) {
-    // Base case: all word letters successfully assigned
-    if (index == letters.size()) {
-        return true;
-    }
-    
-    char letter = letters[index];
-    
-    // Try assigning this letter to each die
-    for (int die = 0; die < 3; die++) {
-        if (dieCount[die] >= 6) continue; // Die already full
-        
-        assignment[letter] = die;
-        dieCount[die]++;
-        
-        // Check if this assignment is valid and recurse
-        if (isValidPartial() && backtrack(letters, index + 1, dieCount)) {
-            return true;
-        }
-        
-        // Backtrack: undo assignment
-        assignment.erase(letter);
-        dieCount[die]--;
-    }
-    
-    return false;
-}
+bool isValidPartial();
+bool backtrack(vector<char>& letters, int index, int dieCount[3]);
 
 int main() {
     int n;
@@ -123,4 +75,55 @@ int main() {
     cout << dice[0] << " " << dice[1] << " " << dice[2] << endl;
     
     return 0;
+}
+
+bool isValidPartial() {
+    // Check if current assignments violate any word constraints
+    for (const string& word : words) {
+        bool allAssigned = true;
+        unordered_set<int> diceUsed;
+        
+        // Check if all letters of this word are assigned
+        for (char c : word) {
+            if (assignment.find(c) == assignment.end()) {
+                allAssigned = false;
+                break;
+            }
+            diceUsed.insert(assignment[c]);
+        }
+        
+        // If all assigned, they must be on 3 different dice
+        if (allAssigned && diceUsed.size() != 3) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool backtrack(vector<char>& letters, int index, int dieCount[3]) {
+    // Base case: all word letters successfully assigned
+    if (index == letters.size()) {
+        return true;
+    }
+    
+    char letter = letters[index];
+    
+    // Try assigning this letter to each die
+    for (int die = 0; die < 3; die++) {
+        if (dieCount[die] >= 6) continue; // Die already full
+        
+        assignment[letter] = die;
+        dieCount[die]++;
+        
+        // Check if this assignment is valid and recurse
+        if (isValidPartial() && backtrack(letters, index + 1, dieCount)) {
+            return true;
+        }
+        
+        // Backtrack: undo assignment
+        assignment.erase(letter);
+        dieCount[die]--;
+    }
+    
+    return false;
 }

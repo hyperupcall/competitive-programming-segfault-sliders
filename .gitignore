@@ -1,0 +1,10 @@
+# Compiled executables and object files
+# C++
+*.exe
+
+# Python
+__pycache__/
+
+# IDE and Editor files
+# Visual Studio Code
+.vscode/
