@@ -1,5 +1,12 @@
 def can_solve_with_sum(problems, total):
-    for start_i in range(total + 1):
+    impl_values = {p[0] for p in problems}
+
+    impl_values.add(0)
+    impl_values.add(total)
+    
+    for start_i in sorted(impl_values):
+        if start_i > total: continue
+        
         start_t = total - start_i
     
         if simulate_all_paths(problems, start_i, start_t):
