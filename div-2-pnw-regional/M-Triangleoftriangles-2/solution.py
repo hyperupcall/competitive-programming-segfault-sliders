@@ -22,10 +22,8 @@ def try_all_angles(t1, t2, t3):
             tri1 = sorted([split1, b, cut_angle1])
             tri2 = sorted([split2, c, cut_angle2])
             
-            for opt1 in favs:
-                for opt2 in favs:
-                    if (tri1 == opt1 and tri2 == opt2) or (tri1 == opt2 and tri2 == opt1):
-                        return True
+            if tri1 in favs and tri2 in favs:
+                return True
     
     return False
 
